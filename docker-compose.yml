@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "4000:3000"
     environment:
       - NODE_ENV=${NODE_ENV}
     depends_on:
@@ -16,11 +16,13 @@ services:
 # -----------------  mongo  -----------------
   mongo:
     image: docker.repos.balad.ir/mongo:7.0.2
-    container_name: my-mongodb-container
+    container_name: mongo-db
+    restart: always
     ports:
       - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGODB_DATABASE}
     networks:
       - supnex
@@ -30,7 +32,7 @@ services:
 # -----------------  gui  -----------------
   mongo-express:
     image: docker.repos.balad.ir/mongo-express:1.0.0-20-alpine3.18
-    container_name: my-mongo-express-container
+    container_name: gui
     ports:
       - "8081:8081"
     environment:
@@ -43,3 +45,4 @@ services:
       - mongo
 networks:
   supnex:
+    name: supnex

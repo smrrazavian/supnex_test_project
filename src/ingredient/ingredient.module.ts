@@ -1,16 +1,13 @@
+// ingredient.module.ts
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 import { IngredientController } from './ingredient.controller';
 import { IngredientService } from './ingredient.service';
-import { Ingredient, IngredientSchema } from './ingredient.model';
+import { ingredientProviders } from '../database/database.providers';
+import { DatabaseModule } from '../database/database.module';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      { name: Ingredient.name, schema: IngredientSchema },
-    ]),
-  ],
+  imports: [DatabaseModule],
   controllers: [IngredientController],
-  providers: [IngredientService],
+  providers: [IngredientService, ...ingredientProviders],
 })
 export class IngredientModule {}

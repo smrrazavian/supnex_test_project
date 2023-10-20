@@ -1,40 +1,27 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Ingredient, IngredientDocument } from './ingredient.model';
-import { UpdateIngredientDto } from '../dto/update-ingredient.dto';
-import { CreateIngredientDto } from '../dto/create-ingredient.dto';
+import { Injectable, Inject } from '@nestjs/common';
 
 @Injectable()
 export class IngredientService {
   constructor(
-    @InjectModel(Ingredient.name)
-    private ingredientModel: Model<IngredientDocument>,
+    @Inject('INGREDIENT_MODEL')
+    private ingredientModel: Model<any>,
   ) {}
 
-  async findAll(): Promise<Ingredient[]> {
+  async findAll(): Promise<any[]> {
     return this.ingredientModel.find().exec();
   }
 
-  async findOne(id: string): Promise<Ingredient | null> {
+  async findOne(id: string): Promise<any | null> {
     return this.ingredientModel.findById(id).exec();
   }
 
-  async create(createIngredientDto: CreateIngredientDto): Promise<Ingredient> {
-    const createdIngredient = new this.ingredientModel(createIngredientDto);
+  async create(ingredientData: any): Promise<any> {
+    const createdIngredient = new this.ingredientModel(ingredientData);
     return createdIngredient.save();
   }
 
-  async update(
-    id: string,
-    updateIngredientDto: UpdateIngredientDto,
-  ): Promise<Ingredient | null> {
-    return this.ingredientModel
-      .findByIdAndUpdate(id, updateIngredientDto, { new: true })
-      .exec();
-  }
-
-  async remove(id: string): Promise<Ingredient | null> {
-    return this.ingredientModel.findByIdAndRemove(id).exec();
+  async update(id: string, ingredientData: any): Promise<any | null> {
+    return this.ingredientModel.findByIdAndUpdate(id, ingredientData).exec();
   }
 }

@@ -31,3 +31,10 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
+
+## Running the app with docker-compose
+
+```bash
+# development
+docker-compose up -d --build
+```
