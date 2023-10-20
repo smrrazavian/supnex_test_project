@@ -1,5 +1,6 @@
 version: '3'
 services:
+# -----------------  app  -----------------
   nestjs-app:
     build:
       context: .
@@ -10,6 +11,9 @@ services:
       - NODE_ENV=${NODE_ENV}
     depends_on:
       - mongo
+    networks:
+      - supnex
+# -----------------  mongo  -----------------
   mongo:
     image: docker.repos.balad.ir/mongo:7.0.2
     container_name: my-mongodb-container
@@ -23,5 +27,19 @@ services:
     volumes:
       - ./.data/db:/data/db
       - ./.data/configdb:/data/configdb
+# -----------------  gui  -----------------
+  mongo-express:
+    image: docker.repos.balad.ir/mongo-express:1.0.0-20-alpine3.18
+    container_name: my-mongo-express-container
+    ports:
+      - "8081:8081"
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGODB_ROOT_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_ROOT_PASSWORD}
+      ME_CONFIG_MONGODB_SERVER: mongo
+    networks:
+      - supnex
+    depends_on:
+      - mongo
 networks:
   supnex:
