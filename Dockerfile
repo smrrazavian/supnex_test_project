@@ -1,5 +1,5 @@
 # Use the node:18-slim-buster image as the base image
-FROM node:18-slim-buster
+FROM docker.repos.balad.ir/node:18
 
 # Set the working directory in the container
 WORKDIR /app

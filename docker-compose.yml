@@ -11,16 +11,18 @@ services:
     depends_on:
       - mongo
   mongo:
-    image: mongo:7.0.2
+    image: docker.repos.balad.ir/mongo:7.0.2
     container_name: my-mongodb-container
     ports:
       - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
-      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGO_INITDB_DATABASE: ${MONGODB_DATABASE}
     networks:
-      - supnex:
-
+      - supnex
+    volumes:
+      - ./.data/db:/data/db
+      - ./.data/configdb:/data/configdb
 networks:
   supnex:
