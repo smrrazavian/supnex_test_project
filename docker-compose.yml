@@ -17,7 +17,6 @@ services:
       - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGODB_DATABASE}
     networks:
       - supnex
