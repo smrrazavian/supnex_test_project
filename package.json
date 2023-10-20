@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Supnex's test project with Nest.Js.",
   "main": "index.js",
-  "type": "module",
   "directories": {
     "test": "test"
   },

@@ -1,14 +1,7 @@
-// src/inventory/inventory.controller.ts
-import { Controller, Get } from '@nestjs/common';
-import { MONGODB_URI } from '../LoadEnv';
+import { Controller } from '@nestjs/common';
+import { InventoryService } from './inventory.service';
 
-@Controller('inventory')
+@Controller({})
 export class InventoryController {
-  @Get()
-  async findAll() {
-    // Use the environment variable as needed
-    const mongodbUri = MONGODB_URI;
-    console.log(mongodbUri);
-    return 'Inventory items';
-  }
+  constructor(private inventoryService: InventoryService) {}
 }
