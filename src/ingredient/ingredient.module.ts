@@ -1,13 +1,19 @@
-// ingredient.module.ts
 import { Module } from '@nestjs/common';
-import { IngredientController } from './ingredient.controller';
-import { IngredientService } from './ingredient.service';
-import { ingredientProviders } from '../database/database.providers';
-import { DatabaseModule } from '../database/database.module';
+import { MongoClient } from 'mongodb';
+import { IngredientService } from './services/ingredient.service';
 
 @Module({
-  imports: [DatabaseModule],
-  controllers: [IngredientController],
-  providers: [IngredientService, ...ingredientProviders],
+  providers: [
+    IngredientService,
+    {
+      provide: 'INGREDIENT_COLLECTION',
+      useFactory: async () => {
+        const client = new MongoClient('mongodb://root:123@mongo');
+        await client.connect();
+        return client.db('supnex-db').collection('ingredients');
+      },
+    },
+  ],
+  exports: [IngredientService],
 })
 export class IngredientModule {}

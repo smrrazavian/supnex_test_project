@@ -1,4 +1,5 @@
-export class CreateIngredientDto {
+export interface Ingredient {
+  _id: string;
   name: string;
   category: string;
   unitOfMeasurement: {

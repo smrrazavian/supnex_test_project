@@ -1,11 +1,15 @@
-// ingredient.providers.ts
-import * as mongoose from 'mongoose';
+import { Db, MongoClient } from 'mongodb';
 
-export const ingredientProviders = [
+export const databaseProviders = [
   {
     provide: 'DATABASE_CONNECTION',
-    useFactory: (): Promise<typeof mongoose> =>
-      mongoose.connect('mongodb://root:123@mongo/db'),
-    inject: ['DATABASE_CONNECTION'],
+    useFactory: async (): Promise<Db> => {
+      try {
+        const client = new MongoClient('mongodb://root:123@mongo');
+        return client.db('supnex-db');
+      } catch (error) {
+        throw error;
+      }
+    },
   },
 ];

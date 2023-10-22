@@ -1,18 +1,16 @@
-// ingredient.schema.ts
-import * as mongoose from 'mongoose';
+import { Collection, MongoClient, Db } from 'mongodb';
+import { Ingredient } from './interfaces/ingredient.interface';
 
-export const IngredientSchema = new mongoose.Schema({
-  name: String,
-  category: String,
-  unitOfMeasurement: {
-    name: String,
-    symbol: String,
-  },
-  suppliers: [
-    {
-      name: String,
-      salePrice: Number,
-    },
-  ],
-  stock: { type: Number, default: 0 },
-});
+let ingredientsCollection: Collection<Ingredient>;
+
+export const initIngredientSchema = async (
+  client: MongoClient,
+  dbName: string,
+): Promise<void> => {
+  const db: Db = client.db(dbName);
+  ingredientsCollection = db.collection<Ingredient>('ingredients');
+};
+
+export const getIngredientCollection = () => {
+  return ingredientsCollection;
+};
