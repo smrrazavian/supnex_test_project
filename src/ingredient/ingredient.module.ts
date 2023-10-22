@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { MongoClient } from 'mongodb';
 import { IngredientService } from './services/ingredient.service';
+import { DatabaseModule } from 'src/database/database.module';
 
 @Module({
+  imports: [DatabaseModule],
   providers: [
     IngredientService,
     {

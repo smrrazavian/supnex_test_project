@@ -14,8 +14,18 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
+  app.use(helmet, {
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: [`'self'`],
+        styleSrc: [`'self'`, `'unsafe-inline'`],
+        imgSrc: [`'self'`, 'data:', 'validator.swagger.io'],
+        scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+      },
+    },
+  });
   app.useGlobalPipes(new ValidationPipe());
-  app.use(helmet());
-  await app.listen(3000);
+  await app.listen(3333);
+  console.log(`Application is running on: ${await app.getUrl()}`);
 }
 bootstrap();

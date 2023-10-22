@@ -11,7 +11,7 @@ import {
 import { IngredientService } from '../services/ingredient.service';
 import { IngredientDTO } from '../dto/ingredient.dto';
 
-@Controller('ingredients')
+@Controller('ingredient')
 export class IngredientController {
   constructor(private readonly ingredientService: IngredientService) {}
 

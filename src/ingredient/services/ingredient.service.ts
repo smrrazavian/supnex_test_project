@@ -1,10 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { IngredientDTO } from '../dto/ingredient.dto';
 import { Collection, ObjectId } from 'mongodb';
 
 @Injectable()
 export class IngredientService {
-  constructor(private readonly collection: Collection) {}
+  constructor(
+    @Inject('INGREDIENT_COLLECTION')
+    private readonly collection: Collection,
+  ) {}
 
   async createIngredient(ingredient: IngredientDTO): Promise<any> {
     const result = await this.collection.insertOne(ingredient);
