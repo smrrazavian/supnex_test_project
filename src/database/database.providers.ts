@@ -6,7 +6,7 @@ export const databaseProviders = [
     useFactory: async (): Promise<Db> => {
       try {
         const client = new MongoClient('mongodb://root:123@mongo');
-        return client.db('supnex-db');
+        return client.db('supnex');
       } catch (error) {
         throw error;
       }

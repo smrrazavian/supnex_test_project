@@ -8,8 +8,8 @@ import {
   Body,
   Query,
 } from '@nestjs/common';
-import { IngredientService } from '../services/ingredient.service';
-import { IngredientDTO } from '../dto/ingredient.dto';
+import { IngredientService } from './ingredient.service';
+import { IngredientDTO } from './dto/ingredient.dto';
 
 @Controller('ingredient')
 export class IngredientController {
@@ -17,7 +17,7 @@ export class IngredientController {
 
   @Post()
   async create(@Body() ingredient: IngredientDTO) {
-    const result = await this.ingredientService.createIngredient(ingredient);
+    const result = await this.ingredientService.create(ingredient);
     return result;
   }
 
@@ -29,10 +29,7 @@ export class IngredientController {
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() ingredient: IngredientDTO) {
-    const result = await this.ingredientService.updateIngredient(
-      id,
-      ingredient,
-    );
+    const result = await this.ingredientService.update(id, ingredient);
     return result;
   }
 

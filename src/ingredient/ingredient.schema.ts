@@ -1,5 +1,5 @@
 import { Collection, MongoClient, Db } from 'mongodb';
-import { Ingredient } from './interfaces/ingredient.interface';
+import { Ingredient } from './ingredient.interface';
 
 let ingredientsCollection: Collection<Ingredient>;
 

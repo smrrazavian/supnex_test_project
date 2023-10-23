@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IngredientDTO } from '../dto/ingredient.dto';
+import { IngredientDTO } from './dto/ingredient.dto';
 import { Collection, ObjectId } from 'mongodb';
 
 @Injectable()
@@ -9,12 +9,12 @@ export class IngredientService {
     private readonly collection: Collection,
   ) {}
 
-  async createIngredient(ingredient: IngredientDTO): Promise<any> {
+  async create(ingredient: IngredientDTO): Promise<any> {
     const result = await this.collection.insertOne(ingredient);
     return result;
   }
 
-  async updateIngredient(id: string, ingredient: IngredientDTO): Promise<any> {
+  async update(id: string, ingredient: IngredientDTO): Promise<any> {
     const objectId = new ObjectId(id);
     const result = await this.collection.findOneAndUpdate(
       { _id: objectId },
@@ -27,7 +27,7 @@ export class IngredientService {
     return await this.collection.find().toArray();
   }
 
-  async getIngredient(id: string): Promise<any> {
+  async findById(id: string): Promise<any> {
     const objectId = new ObjectId(id);
     const result = await this.collection.findOne({ _id: objectId });
     return result;
