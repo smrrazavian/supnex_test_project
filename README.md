@@ -1,4 +1,8 @@
-# supnex_test_project
+# About the project
+
+This project is a test project for SupNex company. It is a simple REST API for managing ingredients.
+
+## Project Architecture
 
 ## Installation
 
@@ -41,3 +45,5 @@ docker-compose up -d --build
 ```
 
 ## TODO
+
+pre-commit [https://www.npmjs.com/package/pre-commit]

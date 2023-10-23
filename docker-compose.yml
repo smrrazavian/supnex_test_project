@@ -1,16 +1,23 @@
 version: '3'
 services:
 # -----------------  app  -----------------
-  nestjs-app:
+  supnex-api:
+    container_name: supnex-api
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "4000:3000"
+    env_file:
+      - .env
     environment:
       - NODE_ENV=${NODE_ENV}
     depends_on:
       - mongo
+    # volumes:
+    #   - ./:/app
+    # working_dir: /app
+    # command: tail -f /dev/null
     networks:
       - supnex
 # -----------------  mongo  -----------------
@@ -23,7 +30,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGODB_ROOT_USERNAME}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD}
-      MONGO_INITDB_DATABASE: supnex-db
     networks:
       - supnex
     volumes:
@@ -43,6 +49,7 @@ services:
       - supnex
     depends_on:
       - mongo
+# -----------------  networks  -----------------
 networks:
   supnex:
     name: supnex
