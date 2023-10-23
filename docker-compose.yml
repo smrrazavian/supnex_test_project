@@ -1,11 +1,12 @@
 version: '3'
 services:
-# -----------------  app  -----------------
+  # -----------------  app  -----------------
   supnex-api:
     container_name: supnex-api
     build:
       context: .
       dockerfile: Dockerfile
+      target: dev
     ports:
       - "4000:3000"
     env_file:
@@ -14,13 +15,15 @@ services:
       - NODE_ENV=${NODE_ENV}
     depends_on:
       - mongo
-    # volumes:
-    #   - ./:/app
-    # working_dir: /app
-    # command: tail -f /dev/null
+    volumes:
+      - /app/node_modules
+      - ./:/app/
+    working_dir: /app
+    command: tail -f /dev/null
+    restart: unless-stopped
     networks:
       - supnex
-# -----------------  mongo  -----------------
+  # -----------------  mongo  -----------------
   mongo:
     image: docker.repos.balad.ir/mongo:7.0.2
     container_name: mongo-db
@@ -35,7 +38,7 @@ services:
     volumes:
       - ./.data/db:/data/db
       - ./.data/configdb:/data/configdb
-# -----------------  gui  -----------------
+  # -----------------  gui  -----------------
   mongo-express:
     image: docker.repos.balad.ir/mongo-express:1.0.0-20-alpine3.18
     container_name: gui

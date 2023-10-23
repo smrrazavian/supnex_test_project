@@ -14,7 +14,6 @@ import { IngredientDTO } from './dto/ingredient.dto';
 @Controller('ingredient')
 export class IngredientController {
   constructor(private readonly ingredientService: IngredientService) {}
-
   @Post()
   async create(@Body() ingredient: IngredientDTO) {
     const result = await this.ingredientService.create(ingredient);

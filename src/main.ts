@@ -10,20 +10,22 @@ async function bootstrap() {
     .setTitle('Ingredient API')
     .setDescription('The ingredient API description')
     .setVersion('1.0')
-    .addTag('ingredients')
+    .addTag('ingredient')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
-  app.use(helmet, {
-    contentSecurityPolicy: {
-      directives: {
-        defaultSrc: [`'self'`],
-        styleSrc: [`'self'`, `'unsafe-inline'`],
-        imgSrc: [`'self'`, 'data:', 'validator.swagger.io'],
-        scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+  SwaggerModule.setup('docs', app, document);
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: [`'self'`],
+          styleSrc: [`'self'`, `'unsafe-inline'`],
+          imgSrc: [`'self'`, 'data:', 'validator.swagger.io'],
+          scriptSrc: [`'self'`, `https: 'unsafe-inline'`],
+        },
       },
-    },
-  });
+    }),
+  );
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
   console.log(`Application is running on: ${await app.getUrl()}`);

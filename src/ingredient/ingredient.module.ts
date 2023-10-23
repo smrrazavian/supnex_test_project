@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongoClient } from 'mongodb';
 import { IngredientService } from './ingredient.service';
 import { DatabaseModule } from 'src/database/database.module';
+import { IngredientController } from './ingredient.controller';
 
 @Module({
   imports: [DatabaseModule],
@@ -17,5 +18,6 @@ import { DatabaseModule } from 'src/database/database.module';
     },
   ],
   exports: [IngredientService],
+  controllers: [IngredientController],
 })
 export class IngredientModule {}
