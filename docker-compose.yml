@@ -38,7 +38,7 @@ services:
     volumes:
       - ./.data/db:/data/db
       - ./.data/configdb:/data/configdb
-  # -----------------  gui  -----------------
+  # -----------------  mongo gui  -----------------
   mongo-express:
     image: docker.repos.balad.ir/mongo-express:1.0.0-20-alpine3.18
     container_name: gui

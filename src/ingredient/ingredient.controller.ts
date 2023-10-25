@@ -10,7 +10,33 @@ import {
 } from '@nestjs/common';
 import { IngredientService } from './ingredient.service';
 import { IngredientDTO } from './dto/ingredient.dto';
-
+/**
+ * @class IngredientController
+ * @constructor
+ * @property {IngredientService} ingredientService
+ * @method create
+ * @method findAll
+ * @method update
+ * @method remove
+ * @method findByCategory
+ * @method findBySupplier
+ * @example
+ * {
+ * name: 'Ingredient 1',
+ * category: 'Category 1',
+ * unitOfMeasurement: {
+ * name: 'Kilogram',
+ * symbol: 'kg'
+ * },
+ * suppliers: [
+ * {
+ * name: 'Supplier 1',
+ * salePrice: 10
+ * }
+ * ],
+ * stock: 10
+ * }
+ */
 @Controller('ingredient')
 export class IngredientController {
   constructor(private readonly ingredientService: IngredientService) {}
@@ -20,6 +46,10 @@ export class IngredientController {
     return result;
   }
 
+  /**
+   * @async findAll
+   * @method GET
+   */
   @Get()
   async findAll() {
     const ingredients = await this.ingredientService.getIngredients();
