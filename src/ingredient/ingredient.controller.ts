@@ -42,23 +42,23 @@ export class IngredientController {
   constructor(private readonly ingredientService: IngredientService) {}
 
   @Get(':id')
-  async getByID(@Param('id') id: string) {
-    return this.ingredientService.getByID(id);
+  async find(@Param('id') id: string) {
+    return this.ingredientService.find(id);
+  }
+
+  @Get('byCategory/:category')
+  async findCategory(@Param('category') category: string) {
+    return this.ingredientService.find(category);
+  }
+
+  @Get('bySupplier/:supplier')
+  async findSupplier(@Param('supplier') supplier: string) {
+    return this.ingredientService.find(supplier);
   }
 
   @Get()
   async getAll() {
     return this.ingredientService.getAll();
-  }
-
-  @Get('byCategory')
-  async findByCategory(@Query('category') category: string) {
-    return this.ingredientService.getByCategory(category);
-  }
-
-  @Get('bySupplier')
-  async findBySupplier(@Query('supplier') supplier: string) {
-    return this.ingredientService.getBySupplier(supplier);
   }
 
   @Post()

@@ -10,20 +10,12 @@ export class IngredientService {
     this.repository = new IngredientRepository();
   }
 
-  async getByID(id: string): Promise<any> {
-    return this.repository.getByID(id);
+  async find(query: any): Promise<any | any[]> {
+    return this.repository.find(query);
   }
 
   async getAll(): Promise<any[]> {
     return this.repository.getAll();
-  }
-
-  async getByCategory(category: string): Promise<any[]> {
-    return this.repository.getByCategory(category);
-  }
-
-  async getBySupplier(supplier: string): Promise<any[]> {
-    return this.repository.getBySupplier(supplier);
   }
 
   async create(ingredient: IngredientDTO): Promise<any> {
