@@ -10,21 +10,18 @@ export class IngredientRepository {
     this.collection = getDatabase().collection('ingredients');
   }
 
-  async find(query: any): Promise<any | any[]> {
-    if (query._id) {
-      const objectId = new ObjectId(query._id);
-      return this.collection.findOne({ _id: objectId });
-    }
-    if (query.category) {
-      return this.collection.find({ category: query.category }).toArray();
-    }
-    if (query.supplier) {
-      return this.collection
-        .find({ 'suppliers.name': query.supplier })
-        .toArray();
-    }
+  async findById(id: string): Promise<any> {
+    const objectId = new ObjectId(id);
 
-    // Handle other cases if needed
+    return this.collection.findOne({ _id: objectId });
+  }
+
+  async findByCategory(category: string): Promise<any[]> {
+    return this.collection.find({ category }).toArray();
+  }
+
+  async findBySupplier(supplier: string): Promise<any[]> {
+    return this.collection.find({ 'suppliers.name': supplier }).toArray();
   }
 
   async getAll(): Promise<any[]> {

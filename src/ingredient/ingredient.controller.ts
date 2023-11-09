@@ -6,7 +6,6 @@ import {
   Delete,
   Param,
   Body,
-  Query,
 } from '@nestjs/common';
 import { IngredientService } from './ingredient.service';
 import { IngredientDTO } from './dto/ingredient.dto';
@@ -42,18 +41,18 @@ export class IngredientController {
   constructor(private readonly ingredientService: IngredientService) {}
 
   @Get(':id')
-  async find(@Param('id') id: string) {
-    return this.ingredientService.find(id);
+  async findById(@Param('id') id: string) {
+    return this.ingredientService.findById(id);
   }
 
-  @Get('byCategory/:category')
-  async findCategory(@Param('category') category: string) {
-    return this.ingredientService.find(category);
+  @Get('category/:category')
+  async findByCategory(@Param('category') category: string) {
+    return this.ingredientService.findByCategory(category);
   }
 
-  @Get('bySupplier/:supplier')
-  async findSupplier(@Param('supplier') supplier: string) {
-    return this.ingredientService.find(supplier);
+  @Get('supplier/:supplier')
+  async findBySupplier(@Param('supplier') supplier: string) {
+    return this.ingredientService.findBySupplier(supplier);
   }
 
   @Get()
