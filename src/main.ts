@@ -9,7 +9,7 @@ import { connectToDatabase } from './database/mongo.db';
 config();
 
 async function bootstrap() {
-  connectToDatabase(process.env.MONGODB_URI, process.env.MONGODB_DBNAME);
+  await connectToDatabase(process.env.MONGODB_URI, process.env.MONGODB_DBNAME);
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
     .setTitle('Ingredient API')
