@@ -8,17 +8,6 @@ import {
   IsNotEmpty,
 } from 'class-validator';
 
-/**
- * class representing a unit of measurement.
- * @class UnitOfMeasurement
- * @property {string} name
- * @property {string} symbol
- * @example
- * {
- * name: 'Kilogram',
- * symbol: 'kg'
- * }
- */
 class UnitOfMeasurement {
   @ApiProperty()
   @IsString()
@@ -31,17 +20,6 @@ class UnitOfMeasurement {
   symbol: string;
 }
 
-/**
- * class representing a supplier.
- * @class Supplier
- * @property {string} name
- * @property {number} salePrice
- * @example
- * {
- * name: 'Supplier 1',
- * salePrice: 10
- * }
- */
 class Supplier {
   @ApiProperty()
   @IsString()
@@ -78,7 +56,7 @@ class Supplier {
  * stock: 10
  * }
  */
-export class IngredientDTO {
+export class CreateIngredientDTO {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
@@ -92,7 +70,7 @@ export class IngredientDTO {
   @ApiProperty({ type: UnitOfMeasurement })
   @IsObject()
   @IsNotEmpty()
-  readonly unitOfMeasurement: UnitOfMeasurement;
+  readonly unitOfMeasurement?: UnitOfMeasurement;
 
   @ApiProperty({ type: [Supplier] })
   @IsArray()

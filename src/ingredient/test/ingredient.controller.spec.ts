@@ -3,6 +3,7 @@ import { IngredientController } from '../ingredient.controller';
 import { IngredientService } from '../ingredient.service';
 import { ingredientStub } from './stubs/ingredient.stub';
 import { Ingredient } from '../schemas/ingredient.schema';
+import { UpdateIngredientDTO } from '../dto/update-ingredient.dto';
 
 jest.mock('../ingredient.service');
 
@@ -119,17 +120,23 @@ describe('IngredientController', () => {
   describe('update', () => {
     describe('when update is called', () => {
       let ingredient: Ingredient;
+      let ingredientDTO: UpdateIngredientDTO;
+
       beforeEach(async () => {
+        ingredientDTO = {
+          name: 'Chocolate Milk',
+          category: 'Chocolate Dairy',
+        };
         ingredient = await ingredientController.update(
           ingredientStub().id,
-          ingredientStub(),
+          ingredientDTO,
         );
       });
 
       test('then it should call ingredientService', () => {
         expect(ingredientService.update).toBeCalledWith(
           ingredientStub().id,
-          ingredientStub(),
+          ingredientDTO,
         );
       });
 

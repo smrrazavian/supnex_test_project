@@ -8,7 +8,8 @@ import {
   Body,
 } from '@nestjs/common';
 import { IngredientService } from './ingredient.service';
-import { IngredientDTO } from './dto/ingredient.dto';
+import { CreateIngredientDTO } from './dto/create-ingredient.dto';
+import { UpdateIngredientDTO } from './dto/update-ingredient.dto';
 /**
  * @class IngredientController
  * @constructor
@@ -61,12 +62,15 @@ export class IngredientController {
   }
 
   @Post()
-  async create(@Body() ingredient: IngredientDTO) {
+  async create(@Body() ingredient: CreateIngredientDTO) {
     return this.ingredientService.create(ingredient);
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() ingredient: IngredientDTO) {
+  async update(
+    @Param('id') id: string,
+    @Body() ingredient: UpdateIngredientDTO,
+  ) {
     return this.ingredientService.update(id, ingredient);
   }
 

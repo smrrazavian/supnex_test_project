@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { IngredientDTO } from './dto/ingredient.dto';
+import { CreateIngredientDTO } from './dto/create-ingredient.dto';
 import { IngredientRepository } from './ingredient.repository';
+import { UpdateIngredientDTO } from './dto/update-ingredient.dto';
 
 @Injectable()
 export class IngredientService {
@@ -26,11 +27,11 @@ export class IngredientService {
     return this.repository.getAll();
   }
 
-  async create(ingredient: IngredientDTO): Promise<any> {
+  async create(ingredient: CreateIngredientDTO): Promise<any> {
     return this.repository.create(ingredient);
   }
 
-  async update(id: string, ingredient: IngredientDTO): Promise<any> {
+  async update(id: string, ingredient: UpdateIngredientDTO): Promise<any> {
     return this.repository.update(id, ingredient);
   }
 

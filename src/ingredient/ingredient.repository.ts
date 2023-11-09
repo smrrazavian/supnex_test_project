@@ -1,10 +1,11 @@
 // repositories/ingredient.repository.ts
 import { Collection, ObjectId } from 'mongodb';
-import { IngredientDTO } from '../ingredient/dto/ingredient.dto';
+import { CreateIngredientDTO } from './dto/create-ingredient.dto';
 import { getDatabase } from '../database/mongo.db';
+import { UpdateIngredientDTO } from './dto/update-ingredient.dto';
 
 export class IngredientRepository {
-  private collection: Collection<IngredientDTO>;
+  private collection: Collection<CreateIngredientDTO>;
 
   constructor() {
     this.collection = getDatabase().collection('ingredients');
@@ -28,12 +29,12 @@ export class IngredientRepository {
     return await this.collection.find().toArray();
   }
 
-  async create(ingredient: IngredientDTO): Promise<any> {
+  async create(ingredient: CreateIngredientDTO): Promise<any> {
     const result = await this.collection.insertOne(ingredient);
     return result;
   }
 
-  async update(id: string, ingredient: IngredientDTO): Promise<any> {
+  async update(id: string, ingredient: UpdateIngredientDTO): Promise<any> {
     const objectId = new ObjectId(id);
     const result = await this.collection.findOneAndUpdate(
       { _id: objectId },
