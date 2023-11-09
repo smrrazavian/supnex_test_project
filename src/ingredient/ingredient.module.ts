@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongoClient } from 'mongodb';
 import { IngredientService } from './ingredient.service';
-import { DatabaseModule } from 'src/database/database.module';
 import { IngredientController } from './ingredient.controller';
 import { config } from 'dotenv';
 
@@ -10,7 +9,6 @@ config();
  * @module IngredientModule
  */
 @Module({
-  imports: [DatabaseModule],
   providers: [
     IngredientService,
     {

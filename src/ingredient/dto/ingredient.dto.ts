@@ -89,7 +89,7 @@ export class IngredientDTO {
   @IsNotEmpty()
   readonly category: string;
 
-  @ApiProperty({ type: [UnitOfMeasurement] })
+  @ApiProperty({ type: UnitOfMeasurement })
   @IsObject()
   @IsNotEmpty()
   readonly unitOfMeasurement: UnitOfMeasurement;
