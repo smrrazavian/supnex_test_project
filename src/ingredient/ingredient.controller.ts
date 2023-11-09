@@ -40,45 +40,39 @@ import { IngredientDTO } from './dto/ingredient.dto';
 @Controller('ingredient')
 export class IngredientController {
   constructor(private readonly ingredientService: IngredientService) {}
-  @Post()
-  async create(@Body() ingredient: IngredientDTO) {
-    const result = await this.ingredientService.create(ingredient);
-    return result;
+
+  @Get(':id')
+  async getByID(@Param('id') id: string) {
+    return this.ingredientService.getByID(id);
   }
 
-  /**
-   * @async findAll
-   * @method GET
-   */
   @Get()
-  async findAll() {
-    const ingredients = await this.ingredientService.getIngredients();
-    return ingredients;
-  }
-
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() ingredient: IngredientDTO) {
-    const result = await this.ingredientService.update(id, ingredient);
-    return result;
-  }
-
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
-    const result = await this.ingredientService.deleteIngredient(id);
-    return result;
+  async getAll() {
+    return this.ingredientService.getAll();
   }
 
   @Get('byCategory')
   async findByCategory(@Query('category') category: string) {
-    const ingredients =
-      await this.ingredientService.getIngredientsByCategory(category);
-    return ingredients;
+    return this.ingredientService.getByCategory(category);
   }
 
   @Get('bySupplier')
   async findBySupplier(@Query('supplier') supplier: string) {
-    const ingredients =
-      await this.ingredientService.getIngredientsBySupplier(supplier);
-    return ingredients;
+    return this.ingredientService.getBySupplier(supplier);
+  }
+
+  @Post()
+  async create(@Body() ingredient: IngredientDTO) {
+    return this.ingredientService.create(ingredient);
+  }
+
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() ingredient: IngredientDTO) {
+    return this.ingredientService.update(id, ingredient);
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    return this.ingredientService.delete(id);
   }
 }

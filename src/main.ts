@@ -4,10 +4,12 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import helmet from 'helmet';
 import { config } from 'dotenv';
+import { connectToDatabase } from './database/mongo.db';
 
 config();
 
 async function bootstrap() {
+  connectToDatabase(process.env.MONGODB_URI, process.env.MONGODB_DBNAME);
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
     .setTitle('Ingredient API')
