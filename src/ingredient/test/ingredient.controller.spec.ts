@@ -145,4 +145,21 @@ describe('IngredientController', () => {
       });
     });
   });
+
+  describe('delete', () => {
+    describe('when delete is called', () => {
+      let ingredient: Ingredient;
+      beforeEach(async () => {
+        ingredient = await ingredientController.remove(ingredientStub().id);
+      });
+
+      test('then it should call ingredientService', () => {
+        expect(ingredientService.delete).toBeCalledWith(ingredientStub().id);
+      });
+
+      test('then it should return an ingredient', () => {
+        expect(ingredient).toEqual(ingredientStub());
+      });
+    });
+  });
 });
