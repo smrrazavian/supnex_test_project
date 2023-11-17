@@ -146,6 +146,32 @@ describe('IngredientController', () => {
     });
   });
 
+  describe('increaseStock', () => {
+    describe('when increaseStock is called', () => {
+      let ingredient: Ingredient;
+      let quantity: number;
+
+      beforeEach(async () => {
+        quantity = 10;
+        ingredient = await ingredientController.increaseStock(
+          ingredientStub().id,
+          quantity,
+        );
+      });
+
+      test('then it should call ingredientService', () => {
+        expect(ingredientService.increaseStock).toBeCalledWith(
+          ingredientStub().id,
+          quantity,
+        );
+      });
+
+      test('then it should return an ingredient', () => {
+        expect(ingredient).toEqual(ingredientStub());
+      });
+    });
+  });
+
   describe('delete', () => {
     describe('when delete is called', () => {
       let ingredient: Ingredient;
@@ -162,4 +188,6 @@ describe('IngredientController', () => {
       });
     });
   });
+
+  //TODO: add Test for failures
 });

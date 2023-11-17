@@ -74,6 +74,11 @@ export class IngredientController {
     return this.ingredientService.update(id, ingredient);
   }
 
+  @Patch(':id')
+  async increaseStock(@Param('id') id: string, @Body() quantity: number) {
+    return this.ingredientService.increaseStock(id, quantity);
+  }
+
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return this.ingredientService.delete(id);

@@ -12,8 +12,9 @@ export const connectToDatabase = async (url: string, dbName: string) => {
 };
 
 export const getDatabase = () => {
-  if (!db) {
-    throw new Error('Database not connected');
+  try {
+    return db;
+  } catch (error) {
+    throw new Error('Database not found');
   }
-  return db;
 };

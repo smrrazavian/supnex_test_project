@@ -44,6 +44,19 @@ export class IngredientRepository {
     return result;
   }
 
+  async increaseStock(id: string, quantity: number): Promise<any> {
+    if (quantity <= 0) {
+      throw new RangeError('Quantity must be a positive number');
+    }
+    const objectId = new ObjectId(id);
+    const result = await this.collection.findOneAndUpdate(
+      { _id: objectId },
+      { $inc: { stock: quantity } },
+      { returnDocument: 'after' },
+    );
+    return result;
+  }
+
   async delete(id: string): Promise<any> {
     const objectId = new ObjectId(id);
     const result = await this.collection.findOneAndDelete({ _id: objectId });

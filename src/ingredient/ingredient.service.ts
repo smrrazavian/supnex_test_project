@@ -35,6 +35,10 @@ export class IngredientService {
     return this.repository.update(id, ingredient);
   }
 
+  async increaseStock(id: string, quantity: number): Promise<any> {
+    return this.repository.increaseStock(id, quantity);
+  }
+
   async delete(id: string): Promise<any> {
     return this.repository.delete(id);
   }
