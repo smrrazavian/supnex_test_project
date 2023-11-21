@@ -2,13 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { CreateIngredientDTO } from './dto/create-ingredient.dto';
 import { IngredientRepository } from './ingredient.repository';
 import { UpdateIngredientDTO } from './dto/update-ingredient.dto';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class IngredientService {
   private repository: IngredientRepository;
+  private eventEmitter: EventEmitter2;
 
   constructor() {
     this.repository = new IngredientRepository();
+    this.eventEmitter = new EventEmitter2();
   }
 
   async findById(id: string): Promise<any> {
@@ -35,8 +38,8 @@ export class IngredientService {
     return this.repository.update(id, ingredient);
   }
 
-  async increaseStock(id: string, quantity: number): Promise<any> {
-    return this.repository.increaseStock(id, quantity);
+  async changeStock(id: string, quantity: number): Promise<any> {
+    this.eventEmitter.emit('stock.updated', { id, quantity });
   }
 
   async delete(id: string): Promise<any> {

@@ -75,8 +75,8 @@ export class IngredientController {
   }
 
   @Patch(':id')
-  async increaseStock(@Param('id') id: string, @Body() quantity: number) {
-    return this.ingredientService.increaseStock(id, quantity);
+  async changeStock(@Param('id') id: string, @Body() quantity: number) {
+    return this.ingredientService.changeStock(id, quantity);
   }
 
   @Delete(':id')

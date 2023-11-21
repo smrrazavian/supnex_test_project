@@ -1,14 +1,13 @@
-// repositories/ingredient.repository.ts
 import { Collection, ObjectId } from 'mongodb';
 import { CreateIngredientDTO } from './dto/create-ingredient.dto';
-import { getDatabase } from '../database/mongo.db';
+import { get } from '../databases/mongo.db';
 import { UpdateIngredientDTO } from './dto/update-ingredient.dto';
 
 export class IngredientRepository {
   private collection: Collection<CreateIngredientDTO>;
 
   constructor() {
-    this.collection = getDatabase().collection('ingredients');
+    this.collection = get().collection('ingredients');
   }
 
   async findById(id: string): Promise<any> {
@@ -44,16 +43,23 @@ export class IngredientRepository {
     return result;
   }
 
-  async increaseStock(id: string, quantity: number): Promise<any> {
-    if (quantity <= 0) {
-      throw new RangeError('Quantity must be a positive number');
+  async changeStock(id: string, quantity: number): Promise<any> {
+    if (quantity === 0) {
+      throw new RangeError('Quantity must be a non-zero number');
     }
     const objectId = new ObjectId(id);
+    const update =
+      quantity < 0
+        ? { $inc: { stock: quantity } }
+        : { $dec: { stock: -quantity } };
     const result = await this.collection.findOneAndUpdate(
-      { _id: objectId },
-      { $inc: { stock: quantity } },
+      { _id: objectId, stock: { $gte: Math.abs(quantity) } },
+      update,
       { returnDocument: 'after' },
     );
+    if (!result) {
+      throw new Error('Insufficient stock');
+    }
     return result;
   }
 

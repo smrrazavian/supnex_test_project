@@ -38,20 +38,20 @@ services:
     volumes:
       - ./.data/db:/data/db
       - ./.data/configdb:/data/configdb
-  # -----------------  mongo gui  -----------------
-  mongo-express:
-    image: docker.repos.balad.ir/mongo-express:1.0.0-20-alpine3.18
-    container_name: gui
+    # -----------------  redis  -----------------
+  redis:
+    image: docker.repos.balad.ir/redis:7.2
+    container_name: supnex-redis
+    depends_on:
+      - supnex-api
+      - mongo
     ports:
-      - "8081:8081"
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGODB_ROOT_USERNAME}
-      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGODB_ROOT_PASSWORD}
-      ME_CONFIG_MONGODB_SERVER: mongo
+      - 6830:6830
     networks:
       - supnex
-    depends_on:
-      - mongo
+    volumes:
+      - ./.data/redis:/data
+    restart: unless-stopped
 # -----------------  networks  -----------------
 networks:
   supnex:

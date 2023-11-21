@@ -1,4 +1,3 @@
-// ingredient.module.ts
 import { Module } from '@nestjs/common';
 import { IngredientService } from './ingredient.service';
 import { IngredientController } from './ingredient.controller';
