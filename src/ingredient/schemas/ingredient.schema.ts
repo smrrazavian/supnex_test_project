@@ -1,16 +1,18 @@
+class UnitOfMeasurement {
+  name: string;
+  symbol: string;
+}
+
+class Supplier {
+  name: string;
+  salePrice: number;
+}
+
 export class Ingredient {
   id: string;
   name: string;
   category: string;
-  unitOfMeasurement: {
-    name: string;
-    symbol: string;
-  };
-  suppliers: [
-    {
-      name: string;
-      salePrice: number;
-    },
-  ];
+  unitOfMeasurement: UnitOfMeasurement;
+  suppliers: Supplier[];
   stock: number;
 }
