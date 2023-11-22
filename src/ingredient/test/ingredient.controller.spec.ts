@@ -153,14 +153,14 @@ describe('IngredientController', () => {
 
       beforeEach(async () => {
         quantity = 10;
-        ingredient = await ingredientController.increaseStock(
+        ingredient = await ingredientController.changeStock(
           ingredientStub().id,
           quantity,
         );
       });
 
       test('then it should call ingredientService', () => {
-        expect(ingredientService.increaseStock).toBeCalledWith(
+        expect(ingredientService.changeStock).toBeCalledWith(
           ingredientStub().id,
           quantity,
         );
