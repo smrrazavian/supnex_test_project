@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
 import { IngredientService } from './ingredient.service';
 import { IngredientController } from './ingredient.controller';
-import { StockUpdateListener } from 'src/listeners/stock-update.listener';
-import { RedisModule } from 'nestjs-redis';
+import { RedisModule } from 'src/redis/redis.module';
+import { IngredientListener } from './ingredient.listener';
+import { IngredientRepository } from './ingredient.repository';
 
 @Module({
   imports: [RedisModule],
-  providers: [IngredientService, StockUpdateListener],
-  exports: [IngredientService],
+  providers: [IngredientService, IngredientListener, IngredientRepository],
+  exports: [IngredientService, IngredientListener, IngredientRepository],
   controllers: [IngredientController],
 })
 export class IngredientModule {}

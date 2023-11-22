@@ -146,8 +146,8 @@ describe('IngredientController', () => {
     });
   });
 
-  describe('increaseStock', () => {
-    describe('when increaseStock is called', () => {
+  describe('changeStock', () => {
+    describe('when changeStock is called', () => {
       let ingredient: Ingredient;
       let quantity: number;
 

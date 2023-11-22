@@ -39,7 +39,7 @@ export class IngredientService {
   }
 
   async changeStock(id: string, quantity: number): Promise<any> {
-    this.eventEmitter.emit('stock.updated', { id, quantity });
+    this.eventEmitter.emit('stock.update.requested', { id, quantity });
   }
 
   async delete(id: string): Promise<any> {

@@ -70,12 +70,15 @@ export class IngredientController {
   async update(
     @Param('id') id: string,
     @Body() ingredient: UpdateIngredientDTO,
-  ) {
+  ): Promise<any> {
     return this.ingredientService.update(id, ingredient);
   }
 
-  @Patch(':id')
-  async changeStock(@Param('id') id: string, @Body() quantity: number) {
+  @Patch(':id/stock') // Change the path for changeStock
+  async changeStock(
+    @Param('id') id: string,
+    @Body() quantity: number,
+  ): Promise<any> {
     return this.ingredientService.changeStock(id, quantity);
   }
 

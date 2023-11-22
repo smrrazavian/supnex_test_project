@@ -1,7 +1,9 @@
+// stock-processor.service.ts
+
 import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { IngredientRepository } from 'src/ingredient/ingredient.repository';
 import { RedisService } from './redis.service';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class StockProcessorService {
@@ -10,7 +12,7 @@ export class StockProcessorService {
 
   constructor(
     private readonly redisService: RedisService,
-    private readonly ingredientRepository: IngredientRepository,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   @Cron(CronExpression.EVERY_10_SECONDS)
@@ -18,8 +20,10 @@ export class StockProcessorService {
     try {
       let event: { id: string; quantity: number };
       while ((event = await this.redisService.dequeue(this.queueKey))) {
-        await this.ingredientRepository.changeStock(event.id, event.quantity);
-        this.logger.log(`Processed stock update for ingredient ${event.id}`);
+        this.eventEmitter.emit('process.stock.change', event);
+        this.logger.log(
+          `Emitted event for processing stock update for ingredient ${event.id}`,
+        );
       }
     } catch (error) {
       this.logger.error(`Error processing stock updates: ${error.message}`);

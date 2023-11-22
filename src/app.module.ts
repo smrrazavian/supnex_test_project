@@ -5,12 +5,14 @@ import { connect } from './databases/mongo.db';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { RedisService } from './redis/redis.service';
 import { StockProcessorService } from './redis/stock-processor.service';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
     IngredientModule,
     ConfigModule.forRoot(),
     EventEmitterModule.forRoot(),
+    RedisModule,
   ],
   providers: [RedisService, StockProcessorService],
 })

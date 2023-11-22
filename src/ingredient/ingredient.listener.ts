@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
-import { RedisService } from '../redis/redis.service';
+import { RedisService } from 'src/redis/redis.service';
 
 @Injectable()
-export class StockUpdateListener {
+export class IngredientListener {
   constructor(private redisService: RedisService) {}
 
-  @OnEvent('stock.update')
+  @OnEvent('stock.update.requested')
   async handleStockUpdateEvent(event: any) {
     await this.redisService.enqueue('stockUpdatesQueue', event);
   }

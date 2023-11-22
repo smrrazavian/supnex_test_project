@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb';
 import { IngredientRepository } from '../ingredient.repository';
 import { ingredientStub } from './stubs/ingredient.stub';
 
-jest.mock('../../database/mongo.db.ts');
+jest.mock('../../databases/mongo.db.ts');
 
 describe('IngredientRepository', () => {
   let ingredientRepository: IngredientRepository;
