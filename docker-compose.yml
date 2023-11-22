@@ -46,7 +46,7 @@ services:
       - supnex-api
       - mongo
     ports:
-      - 6830:6830
+      - "6739:6379"
     networks:
       - supnex
     volumes:

@@ -6,13 +6,10 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 
 @Injectable()
 export class IngredientService {
-  private repository: IngredientRepository;
-  private eventEmitter: EventEmitter2;
-
-  constructor() {
-    this.repository = new IngredientRepository();
-    this.eventEmitter = new EventEmitter2();
-  }
+  constructor(
+    private readonly repository: IngredientRepository,
+    private readonly eventEmitter: EventEmitter2,
+  ) {}
 
   async findById(id: string): Promise<any> {
     return this.repository.findById(id);
